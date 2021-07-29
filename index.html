@@ -32,12 +32,16 @@
 
   <body>
     <div class="container">
-      <div class="row">
+      <div class="row mb-5">
         <div class="col-3 text-center m-3">
-          <button onclick="handleAddProduct()" class="btn btn-success">
+          <button
+            id="addProduct"
+            onclick="handleAddProduct(this)"
+            class="btn btn-success"
+          >
             Add a new Product
           </button>
-          <form id="productForm">
+          <form onsubmit="handleFormSubmit(event)" id="productForm">
             <div>
               <label class="form-label" for="productName">Product Name</label>
               <input
@@ -45,6 +49,7 @@
                 type="text"
                 id="productName"
                 name="productName"
+                required
               />
               <label class="form-label" for="productPrice">Product Price</label>
               <input
@@ -52,7 +57,12 @@
                 type="number"
                 id="productPrice"
                 name="productPrice"
+                value=""
+                onchange="checkInteger(event)"
+                oninput="checkInteger(event)"
+                required
               />
+              <p class="error"></p>
               <label class="form-label" for="numberOfProducts"
                 >Number of Products:</label
               >
@@ -61,14 +71,19 @@
                 type="number"
                 id="numberOfProducts"
                 name="numberOfProducts"
+                value=""
+                onchange="checkInteger(event)"
+                oninput="checkInteger(event)"
+                required
               />
-              <div class="m-3">
+              <p class="error"></p>
+              <div class="m-3 mb-5">
                 <button
+                  id="addbtn"
                   class="btn btn-outline-primary"
                   type="submit"
-                  onclick="handleFormSubmit(values)"
                 >
-                  Submit
+                  Add
                 </button>
                 <button
                   type="button"
@@ -81,7 +96,7 @@
             </div>
           </form>
         </div>
-        <div class="col-6 m-3 mx-5">
+        <div class="col-6 m-3 mx-5 dataTable">
           <h2>List of Products</h2>
           <table class="table table-bordered">
             <thead>
@@ -92,35 +107,23 @@
                 <th scope="col">Number of Products</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Shirt</td>
-                <td>35</td>
-                <td>14</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Shirt</td>
-                <td>35</td>
-                <td>14</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Shirt</td>
-                <td>35</td>
-                <td>14</td>
-              </tr>
-            </tbody>
+            <tbody id="tableBody"></tbody>
           </table>
         </div>
       </div>
-      <div class="row m-3">
-        <div class="col-3">
-          <button class="btn btn-info">Calculate Total</button>
+
+      <div class="row calculations">
+        <hr />
+        <div class="col-12">
+          <button class="btn btn-info" onclick="handleCalculateTotal()">
+            Calculate Total
+          </button>
+          <button class="btn btn-danger" onclick="handleClearAll()">
+            Clear All
+          </button>
         </div>
-        <div class="m-3">
-          <h2>Total:</h2>
+        <div class="mt-5">
+          <h2>Total:<span id="totalDisplay"></span></h2>
         </div>
       </div>
     </div>

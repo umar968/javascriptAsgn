@@ -1,0 +1,12 @@
+#productForm {
+  display: none;
+  position: absolute;
+}
+
+.error {
+  color: red;
+}
+.calculations {
+  position: absolute;
+  bottom: 10px;
+}
